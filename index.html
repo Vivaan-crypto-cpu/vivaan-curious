@@ -2,135 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vivaan's Blog 🎮</title>
+  <title>Vivaan's Curious Blog 🎨</title>
   <style>
     body {
-      background-color: #fffbea;
-      font-family: 'Arial', sans-serif;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fceabb, #f8b500);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      width: 350px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      padding: 30px;
       text-align: center;
-      animation: fadeIn 2s ease-in;
+      animation: fadeIn 1.5s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    header {
-      background-color: #ffcf77;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    h2 {
+      margin-bottom: 20px;
+      color: #444;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      color: #333;
-    }
-
-    .login-box {
-      margin: 20px auto;
-      background: #fff;
-      padding: 20px;
-      border: 2px dashed #ddd;
-      width: 300px;
-      border-radius: 8px;
-    }
-
-    input[type="text"], input[type="password"] {
-      padding: 10px;
-      margin: 10px;
+    input {
       width: 90%;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      background-color: #f4f4f4;
+      font-size: 1em;
     }
 
     button {
       padding: 10px 20px;
-      background-color: #77dd77;
       border: none;
-      border-radius: 4px;
+      background: #ffb347;
+      border-radius: 8px;
       font-weight: bold;
       cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
     }
 
-    .blog-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 30px;
+    button:hover {
+      background: #ffa033;
     }
 
-    .blog-post {
-      background: #fff;
-      width: 280px;
-      margin: 15px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      transition: transform 0.3s ease;
+    .link {
+      margin-top: 15px;
+      color: #555;
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 0.9em;
     }
 
-    .blog-post:hover {
-      transform: scale(1.05);
+    #blog {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
     }
 
-    footer {
-      margin-top: 40px;
-      padding: 20px;
-      background-color: #ffcf77;
+    .welcome {
+      font-size: 1.5em;
+      margin-bottom: 20px;
       color: #333;
+    }
+
+    .post {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 300px;
+      margin: 10px 0;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🎮 Vivaan's Blog</h1>
-    <p>Gaming + Coding + Fun</p>
-  </header>
 
-  <div class="login-box">
-    <h3>Login</h3>
-    <input type="text" placeholder="Username" id="username"><br>
-    <input type="password" placeholder="Password" id="password"><br>
-    <button onclick="login()">Login</button>
-    <p id="login-msg" style="color: red;"></p>
+<div class="container" id="login-box">
+  <h2>Welcome Back</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="login-password" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <div class="link" onclick="switchToSignup()">Need an account? Sign up</div>
+  <p id="login-error" style="color: red;"></p>
+</div>
+
+<div class="container" id="signup-box" style="display: none;">
+  <h2>Create Account</h2>
+  <input type="email" id="signup-email" placeholder="Email">
+  <input type="password" id="signup-password" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <div class="link" onclick="switchToLogin()">Already have an account? Sign in</div>
+</div>
+
+<div id="blog" style="display: none;">
+  <div class="welcome">🎨 Welcome, Vivaan — The Curious Blogger</div>
+
+  <div class="post">
+    <h3>🌈 Why Colors Matter</h3>
+    <p>I believe colors aren’t just visual — they tell stories. Like a feeling turned into light.</p>
   </div>
 
-  <div class="blog-container" id="blog-section" style="display: none;">
-    <div class="blog-post">
-      <h3>🎮 Why I love gaming</h3>
-      <p>I play Minecraft, Roblox and love solving puzzles!</p>
-    </div>
-    <div class="blog-post">
-      <h3>🖥️ How I made this blog</h3>
-      <p>With HTML, CSS and JavaScript. It's fun to code!</p>
-    </div>
-    <div class="blog-post">
-      <h3>💡 Ideas for the future</h3>
-      <p>Make a game with JavaScript and add a leaderboard!</p>
-    </div>
+  <div class="post">
+    <h3>💡 Ideas over Code</h3>
+    <p>You don’t need to be a coder to build something. Curiosity creates more than syntax ever could.</p>
   </div>
+</div>
 
-  <footer>
-    🚀 Made by Vivaan | 10 Years Old | Coder + Gamer
-  </footer>
+<script>
+  let savedEmail = "vivaan@example.com";
+  let savedPassword = "mypassword";
 
-  <script>
-    function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      const message = document.getElementById('login-msg');
-      if (user === "vivaan" && pass === "1234") {
-        document.querySelector(".login-box").style.display = "none";
-        document.getElementById("blog-section").style.display = "flex";
-        message.textContent = "";
-      } else {
-        message.textContent = "Wrong username or password!";
-      }
+  function switchToSignup() {
+    document.getElementById("login-box").style.display = "none";
+    document.getElementById("signup-box").style.display = "block";
+  }
+
+  function switchToLogin() {
+    document.getElementById("signup-box").style.display = "none";
+    document.getElementById("login-box").style.display = "block";
+  }
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("login-password").value;
+    if (email === savedEmail && pass === savedPassword) {
+      showBlog();
+    } else {
+      document.getElementById("login-error").textContent = "Invalid login!";
     }
-  </script>
+  }
+
+  function signup() {
+    savedEmail = document.getElementById("signup-email").value;
+    savedPassword = document.getElementById("signup-password").value;
+    alert("Signup successful! Now log in.");
+    switchToLogin();
+  }
+
+  function showBlog() {
+    document.getElementById("login-box").style.display = "none";
+    document.getElementById("signup-box").style.display = "none";
+    document.getElementById("blog").style.display = "flex";
+    document.body.style.background = "#fffef5";
+  }
+</script>
+
 </body>
 </html>
