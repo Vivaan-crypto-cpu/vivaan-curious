@@ -2,167 +2,228 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Vivaan's Curious Blog 🎨</title>
+  <title>Vivaan Arora • My Curious World</title>
   <style>
+    :root {
+      --dark-blue: #00274d;
+      --sky-blue: #87ceeb;
+      --light-yellow: #fff9c4;
+      --light-pink: #ffccdc;
+      --light-gray: #f0f0f0;
+      --dark-gray: #333;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #fceabb, #f8b500);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: var(--light-gray);
+      color: var(--dark-gray);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, var(--dark-blue), var(--sky-blue), var(--light-pink));
+      background-size: 300% 300%;
+      animation: gradientShift 8s ease infinite;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .typing {
+      font-size: 1.8em;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .15em solid rgba(255,255,255,0.75);
+      width: 0;
+      animation: typing 4s steps(40,end), blink-caret 0.75s step-end infinite;
+      margin: 0 auto;
+      max-width: 700px;
+    }
+    @keyframes typing { from { width: 0 } to { width: 100% } }
+    @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: rgba(255,255,255,0.75) } }
+
+    .top-content {
+      text-align: center;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid var(--dark-blue);
+      object-fit: cover;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 15px 10px;
+      padding: 15px 25px;
+      background: var(--sky-blue);
+      color: white;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
       overflow: hidden;
     }
-
-    .container {
-      width: 350px;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-      padding: 30px;
-      text-align: center;
-      animation: fadeIn 1.5s ease;
+    .btn::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 100%;
+      left: 0;
+      background: rgba(255, 255, 255, 0.4);
+      transform: skewY(-45deg);
+      transition: all 0.5s;
     }
+    .btn:hover::after { top: -100%; }
+    .btn:hover { background: var(--dark-blue); }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .editor, .game, .ask-me {
+      margin: 40px auto;
+      max-width: 800px;
+      padding: 20px;
+      background: white;
+      border: 2px solid var(--sky-blue);
+      border-radius: 12px;
     }
-
-    h2 {
-      margin-bottom: 20px;
-      color: #444;
-    }
-
-    input {
-      width: 90%;
+    .editor textarea {
+      width: 100%;
+      height: 120px;
       padding: 10px;
-      margin: 10px 0;
-      border: none;
+      border: 1px solid var(--dark-gray);
       border-radius: 8px;
-      background-color: #f4f4f4;
+      resize: vertical;
+      font-family: 'Segoe UI', sans-serif;
+      margin-bottom: 10px;
+    }
+    .editor .preview {
+      padding: 10px;
+      border: 1px solid var(--dark-gray);
+      border-radius: 8px;
+      background: var(--light-yellow);
+      min-height: 80px;
+    }
+    .ask-me textarea {
+      width: 100%;
+      height: 60px;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--dark-gray);
+      resize: vertical;
+    }
+    .game {
+      text-align: center;
+    }
+    .game button {
+      font-size: 1.2em;
+      margin: 10px;
+    }
+    .score-board {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .toggle-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--dark-blue);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      cursor: pointer;
       font-size: 1em;
     }
-
-    button {
-      padding: 10px 20px;
-      border: none;
-      background: #ffb347;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #ffa033;
-    }
-
-    .link {
-      margin-top: 15px;
-      color: #555;
-      cursor: pointer;
-      text-decoration: underline;
-      font-size: 0.9em;
-    }
-
-    #blog {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 30px;
-    }
-
-    .welcome {
-      font-size: 1.5em;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    .post {
-      background: white;
-      border-radius: 10px;
+    footer {
+      text-align: center;
       padding: 20px;
-      width: 300px;
-      margin: 10px 0;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      color: var(--dark-gray);
     }
   </style>
 </head>
 <body>
 
-<div class="container" id="login-box">
-  <h2>Welcome Back</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="login-password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <div class="link" onclick="switchToSignup()">Need an account? Sign up</div>
-  <p id="login-error" style="color: red;"></p>
-</div>
+  <button class="toggle-mode" onclick="toggleMode()">🌙</button>
 
-<div class="container" id="signup-box" style="display: none;">
-  <h2>Create Account</h2>
-  <input type="email" id="signup-email" placeholder="Email">
-  <input type="password" id="signup-password" placeholder="Password">
-  <button onclick="signup()">Sign Up</button>
-  <div class="link" onclick="switchToLogin()">Already have an account? Sign in</div>
-</div>
-
-<div id="blog" style="display: none;">
-  <div class="welcome">🎨 Welcome, Vivaan — The Curious Blogger</div>
-
-  <div class="post">
-    <h3>🌈 Why Colors Matter</h3>
-    <p>I believe colors aren’t just visual — they tell stories. Like a feeling turned into light.</p>
+  <div class="header">
+    <div class="typing">
+      Hi, I'm Vivaan Arora. I'm 10 years old and I love to explore new ideas and play games.
+    </div>
   </div>
 
-  <div class="post">
-    <h3>💡 Ideas over Code</h3>
-    <p>You don’t need to be a coder to build something. Curiosity creates more than syntax ever could.</p>
+  <div class="top-content">
+    <img src="https://via.placeholder.com/180" alt="Photo of Vivaan" class="photo">
+    <p>This website is my space to share fun, random creations, ideas, and quotes.</p>
   </div>
-</div>
 
-<script>
-  let savedEmail = "vivaan@example.com";
-  let savedPassword = "mypassword";
+  <div class="editor">
+    <h2>Write Your Thoughts</h2>
+    <textarea id="blog-input" placeholder="Type something..."></textarea>
+    <button class="btn" onclick="publish()">Publish</button>
+    <div class="preview" id="blog-preview"></div>
+  </div>
 
-  function switchToSignup() {
-    document.getElementById("login-box").style.display = "none";
-    document.getElementById("signup-box").style.display = "block";
-  }
+  <div class="game">
+    <h2>Mini Click Game</h2>
+    <button class="btn" onclick="clickGame()">Click Me FAST!</button>
+    <div class="score-board">Score: <span id="score">0</span></div>
+  </div>
 
-  function switchToLogin() {
-    document.getElementById("signup-box").style.display = "none";
-    document.getElementById("login-box").style.display = "block";
-  }
+  <div class="ask-me">
+    <h2>Ask Vivaan</h2>
+    <textarea id="ask-input" placeholder="Ask me anything..."></textarea><br>
+    <button class="btn" onclick="askVivaan()">Send</button>
+    <div id="ask-response" style="margin-top: 10px; color: var(--dark-blue);"></div>
+  </div>
 
-  function login() {
-    const email = document.getElementById("email").value;
-    const pass = document.getElementById("login-password").value;
-    if (email === savedEmail && pass === savedPassword) {
-      showBlog();
-    } else {
-      document.getElementById("login-error").textContent = "Invalid login!";
+  <footer>
+    “Adventure is out there.” – Up
+  </footer>
+
+  <script>
+    let dark = false;
+    function toggleMode(){
+      dark = !dark;
+      document.body.style.background = dark ? 'var(--dark-gray)' : 'var(--light-gray)';
+      document.body.style.color = dark ? 'var(--light-yellow)' : 'var(--dark-gray)';
+      document.querySelector('.toggle-mode').textContent = dark ? '☀️' : '🌙';
     }
-  }
 
-  function signup() {
-    savedEmail = document.getElementById("signup-email").value;
-    savedPassword = document.getElementById("signup-password").value;
-    alert("Signup successful! Now log in.");
-    switchToLogin();
-  }
+    function publish(){
+      const text = document.getElementById('blog-input').value;
+      document.getElementById('blog-preview').innerText = text;
+    }
 
-  function showBlog() {
-    document.getElementById("login-box").style.display = "none";
-    document.getElementById("signup-box").style.display = "none";
-    document.getElementById("blog").style.display = "flex";
-    document.body.style.background = "#fffef5";
-  }
-</script>
+    let score = 0;
+    function clickGame(){
+      score++;
+      document.getElementById('score').innerText = score;
+    }
+
+    function askVivaan(){
+      const q = document.getElementById('ask-input').value.toLowerCase();
+      const resp = document.getElementById('ask-response');
+      if(q.includes('favorite game')){
+        resp.innerText = "I love playing Minecraft!";
+      } else if(q.includes('favorite color')){
+        resp.innerText = "I love dark blue, sky blue, light yellow, and pink!";
+      } else {
+        const quotes = ["Curiosity is the wick in the candle of learning.", "Adventure is out there.", "You miss 100% of the shots you don’t take."];
+        resp.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+      }
+    }
+  </script>
 
 </body>
 </html>
